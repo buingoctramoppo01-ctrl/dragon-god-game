@@ -1,0 +1,133 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Goku Tóc Đen</title>
+<style>
+:root{color-scheme:dark}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;touch-action:none}
+#container{position:fixed;inset:0;background:#87CEFA;overflow:hidden}
+#startScreen{position:absolute;inset:0;background:background-color:#1b6fb5;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;text-align:center}
+h1{text-shadow:0 2px 6px rgba(0,30,70,.75);color:#ffcc00;font-size:clamp(20px,5vw,32px);margin-bottom:12px;padding:0 16px;line-height:1.25;text-wrap:balance}
+p{text-shadow:0 1px 4px rgba(0,30,70,.8);color:#fff;font-size:15px;margin-bottom:20px}
+#startBtn,#mangBtn{position:relative;overflow:hidden;padding:14px 40px;font-size:18px;border-radius:14px;border:1px solid #b07c00;background:linear-gradient(180deg,#ffec8f 0%,#ffcc00 49%,#f2a900 51%,#ffc933 100%);color:#3a2a00;font-weight:bold;cursor:pointer;text-shadow:0 1px 0 rgba(255,255,255,.55);box-shadow:0 6px 0 #a97400,0 10px 18px rgba(0,0,0,.5),inset 0 2px 0 rgba(255,255,255,.75),inset 0 -2px 0 rgba(0,0,0,.14);transition:transform .08s,box-shadow .08s}
+#startBtn::before,#mangBtn::before{content:"";position:absolute;left:6%;right:6%;top:3px;height:44%;border-radius:10px 10px 50% 50%/10px 10px 30% 30%;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.08));pointer-events:none}
+#startBtn:active,#mangBtn:active{transform:translateY(4px);box-shadow:0 2px 0 #a97400,0 4px 8px rgba(0,0,0,.45),inset 0 2px 0 rgba(255,255,255,.6),inset 0 -2px 0 rgba(0,0,0,.14)}
+#startBtn:focus-visible,#mangBtn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+#startBtn:disabled,#mangBtn:disabled{opacity:.78;cursor:wait}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+.joystick{position:absolute;bottom:24px;left:46px;width:92px;height:92px;border-radius:50%;
+ background:radial-gradient(circle at 50% 45%,rgba(120,150,110,.30) 0%,rgba(40,55,40,.34) 62%,rgba(0,0,0,.30) 100%);
+ border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 0 10px rgba(0,0,0,.28);
+ display:none;z-index:999;touch-action:none}
+.joystick::before{content:"";position:absolute;inset:-14px;border-radius:50%}
+.joy-ring{position:absolute;top:50%;left:50%;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);box-shadow:0 0 5px rgba(255,255,255,.12);pointer-events:none}
+.joy-btn{position:absolute;left:50%;top:50%;width:9px;height:3.6px;margin:-26px 0 0 -4.5px;border-radius:50% 50% 25% 25%/100% 100% 30% 30%;background:linear-gradient(180deg,#fafcf8 0%,#cdd3cb 100%);box-shadow:0 1px 1.5px rgba(0,0,0,.4);pointer-events:none}
+.joy-btn::after{content:"";position:absolute;left:50%;top:100%;width:3px;height:2.2px;margin-left:-1.5px;background:linear-gradient(90deg,#aab1a8,#e4e8e2,#aab1a8);border-radius:0 0 1px 1px}
+.joy-in{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;
+ background:
+  repeating-radial-gradient(circle at 50% 50%,transparent 0 6px,rgba(170,255,185,.16) 6px 7px),
+  repeating-linear-gradient(0deg,rgba(170,255,185,.2) 0 1px,transparent 1px 6px),
+  repeating-linear-gradient(90deg,rgba(170,255,185,.2) 0 1px,transparent 1px 6px),
+  radial-gradient(circle at 50% 50%,#3b8a4c 0%,#2c6e3a 65%,#235a2e 100%);
+ border:2px solid rgba(255,255,255,.78);opacity:.82;box-shadow:0 0 0 1px rgba(0,0,0,.16),inset 0 0 6px rgba(0,0,0,.3),0 1px 3px rgba(0,0,0,.22);
+ pointer-events:none}
+#mangScreen{position:absolute;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;background:rgba(0,15,40,.84);text-align:center;padding:16px}
+.mang-hop{max-width:min(92vw,460px);padding:18px 20px 20px;border-radius:18px;background:linear-gradient(180deg,rgba(20,50,95,.96),rgba(8,26,58,.96));border:1px solid rgba(255,255,255,.28);box-shadow:0 12px 40px rgba(0,0,0,.55)}
+.mang-icon{font-size:clamp(34px,9vh,52px);line-height:1;margin-bottom:6px}
+#mangScreen h2{color:#ffcc00;font-size:clamp(18px,4.6vw,26px);line-height:1.25;margin-bottom:8px;text-shadow:0 2px 6px rgba(0,30,70,.75)}
+#mangScreen p{font-size:clamp(13px,3.4vw,16px);margin-bottom:14px}
+#gearBtn{position:absolute;top:10px;right:12px;z-index:60;width:44px;height:44px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.85);background:rgba(0,0,0,.38);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+#gearBtn svg{width:26px;height:26px;fill:#fff;filter:drop-shadow(0 1px 1px rgba(0,0,0,.45));transition:transform .45s ease}
+#gearBtn:active svg{transform:rotate(90deg)}
+#gearBtn:focus-visible{outline:3px solid #ffcc00;outline-offset:2px}
+#caiDatScreen{position:absolute;inset:0;z-index:1050;display:none;align-items:center;justify-content:center;background:rgba(0,12,32,.62);padding:10px;-webkit-user-select:none;user-select:none}
+#caiDatScreen.mo{display:flex}
+.cd-hop{width:min(100%,600px);height:min(100%,310px);display:flex;flex-direction:column;border-radius:16px;background:linear-gradient(180deg,rgba(24,58,108,.97),rgba(8,26,58,.97));border:1px solid rgba(255,255,255,.3);box-shadow:0 12px 40px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.18);overflow:hidden;color:#fff;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.cd-dau{display:flex;align-items:center;justify-content:space-between;padding:8px 10px 8px 16px;border-bottom:1px solid rgba(255,255,255,.16);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,0))}
+.cd-tieude{color:#ffcc00;font-weight:800;font-size:17px;letter-spacing:.5px;text-shadow:0 2px 5px rgba(0,30,70,.8)}
+.cd-dong{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.12);color:#fff;font-size:16px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.cd-dong:active{background:rgba(255,255,255,.3)}
+.cd-than{flex:1;min-height:0;display:flex}
+.cd-tabs{width:132px;flex:none;display:flex;flex-direction:column;gap:6px;padding:10px 8px;border-right:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.14)}
+.cd-tab{padding:9px 6px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:#dbe9ff;font:600 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.cd-tab.on{border-color:#b07c00;background:linear-gradient(180deg,#ffec8f 0%,#ffcc00 49%,#f2a900 51%,#ffc933 100%);color:#3a2a00;box-shadow:0 2px 0 #a97400}
+.cd-noidung{flex:1;min-width:0;overflow-y:auto;overflow-x:hidden;padding:6px 14px 10px;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch}
+.cd-muc{display:none}
+.cd-muc.on{display:block}
+.cd-hang{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;border-bottom:1px solid rgba(255,255,255,.1)}
+.cd-nhan{font-size:14px;color:#f3f8ff}
+.cd-so{color:#ffcc00;font-weight:700;margin-left:4px}
+.cd-tgl{position:relative;flex:none;width:46px;height:26px;padding:0;border-radius:13px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.18);cursor:pointer;transition:background .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.cd-tgl i{position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.45);transition:transform .2s}
+.cd-tgl.on{background:linear-gradient(180deg,#5fd36b,#2e9e3e);border-color:#1f7a2d}
+.cd-tgl.on i{transform:translateX(20px)}
+.cd-range{-webkit-appearance:none;appearance:none;flex:none;width:44%;max-width:230px;height:26px;background:transparent;touch-action:pan-x pan-y}
+.cd-range::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:rgba(255,255,255,.28)}
+.cd-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;margin-top:-8px;border-radius:50%;background:linear-gradient(180deg,#ffec8f,#ffcc00);border:1px solid #b07c00;box-shadow:0 1px 3px rgba(0,0,0,.5)}
+.cd-range::-moz-range-track{height:6px;border-radius:3px;background:rgba(255,255,255,.28)}
+.cd-range::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#ffcc00;border:1px solid #b07c00}
+.cd-seg{display:flex;flex:none;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.35)}
+.cd-seg button{padding:7px 12px;border:0;border-right:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#dbe9ff;font:600 13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.cd-seg button:last-child{border-right:0}
+.cd-seg button.on{background:linear-gradient(180deg,#ffec8f,#ffcc00);color:#3a2a00}
+.cd-chu{color:#bcd3f5;font-size:13px;text-align:right}
+.cd-ghichu{margin-top:10px;padding:8px 10px;border-radius:10px;background:rgba(255,204,0,.1);border:1px dashed rgba(255,204,0,.45);color:#ffe28a;font-size:12px;line-height:1.35}
+</style>
+<div id="container">
+<div id="startScreen">
+<h1>🐉 CHÀO MỪNG - Rồng Thần Online demo 1.0 🐉</h1>
+<p>Bấm BẮT ĐẦU để xem</p>
+<button id="startBtn" onclick="batDau()">▶ BẮT ĐẦU</button>
+</div>
+<canvas id="canvas"></canvas>
+<div id="mangScreen" role="alertdialog" aria-live="assertive" aria-labelledby="mangTieuDe">
+<div class="mang-hop">
+<div class="mang-icon">📡</div>
+<h2 id="mangTieuDe">Bạn cần có Wi-Fi / Internet để chơi game</h2>
+<p id="mangChiTiet">Vui lòng bật Wi-Fi hoặc dữ liệu di động, rồi bấm THỬ LẠI.</p>
+<button id="mangBtn" onclick="thuLaiMang()">🔄 THỬ LẠI</button>
+</div>
+</div>
+<div class="joystick" id="joystick"><div class="joy-ring"></div><div class="joy-in"><div class="joy-btn"></div></div></div>
+
+<button id="gearBtn" type="button" aria-label="Cài đặt" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M9.83 3.89 L10.25 0.94 L13.75 0.94 L14.17 3.89 L15.21 4.24 L16.20 4.73 L18.58 2.94 L21.06 5.42 L19.27 7.80 L19.76 8.79 L20.11 9.83 L23.06 10.25 L23.06 13.75 L20.11 14.17 L19.76 15.21 L19.27 16.20 L21.06 18.58 L18.58 21.06 L16.20 19.27 L15.21 19.76 L14.17 20.11 L13.75 23.06 L10.25 23.06 L9.83 20.11 L8.79 19.76 L7.80 19.27 L5.42 21.06 L2.94 18.58 L4.73 16.20 L4.24 15.21 L3.89 14.17 L0.94 13.75 L0.94 10.25 L3.89 9.83 L4.24 8.79 L4.73 7.80 L2.94 5.42 L5.42 2.94 L7.80 4.73 L8.79 4.24 Z M15.90 12.00 a3.9 3.9 0 1 0 -7.8 0 a3.9 3.9 0 1 0 7.8 0 Z"/></svg></button>
+
+<div id="caiDatScreen" role="dialog" aria-modal="true" aria-labelledby="cdTieuDe">
+<div class="cd-hop">
+<div class="cd-dau"><div id="cdTieuDe" class="cd-tieude">CÀI ĐẶT</div><button type="button" class="cd-dong" id="cdDong" aria-label="Đóng cài đặt">✕</button></div>
+<div class="cd-than">
+<div class="cd-tabs" role="tablist">
+<button type="button" class="cd-tab on" role="tab" data-tab="amthanh">🔊 Âm thanh</button>
+<button type="button" class="cd-tab" role="tab" data-tab="dohoa">🖼 Đồ họa</button>
+<button type="button" class="cd-tab" role="tab" data-tab="dieukhien">🎮 Điều khiển</button>
+<button type="button" class="cd-tab" role="tab" data-tab="khac">📋 Khác</button>
+</div>
+<div class="cd-noidung">
+<div class="cd-muc on" data-muc="amthanh">
+<div class="cd-hang"><span class="cd-nhan">Nhạc nền sảnh</span><button type="button" class="cd-tgl on" data-cd="nhacSanh" role="switch" aria-checked="true"><i></i></button></div>
+<div class="cd-hang"><span class="cd-nhan">Nhạc nền</span><button type="button" class="cd-tgl on" data-cd="nhacNen" role="switch" aria-checked="true"><i></i></button></div>
+<div class="cd-hang"><span class="cd-nhan">Âm thanh hiệu ứng</span><button type="button" class="cd-tgl on" data-cd="amThanhHieuUng" role="switch" aria-checked="true"><i></i></button></div>
+<div class="cd-hang"><span class="cd-nhan">Âm lượng <b class="cd-so" data-so="amLuong">80</b></span><input type="range" class="cd-range" data-cd="amLuong" min="0" max="100" value="80" aria-label="Âm lượng"></div>
+</div>
+<div class="cd-muc" data-muc="dohoa">
+<div class="cd-hang"><span class="cd-nhan">Chất lượng hình ảnh</span><div class="cd-seg" data-cd="chatLuong"><button type="button" data-v="thap">Thấp</button><button type="button" data-v="vua" class="on">Vừa</button><button type="button" data-v="cao">Cao</button></div></div>
+<div class="cd-hang"><span class="cd-nhan">Hiện bóng nhân vật</span><button type="button" class="cd-tgl on" data-cd="hienBong" role="switch" aria-checked="true"><i></i></button></div>
+<div class="cd-hang"><span class="cd-nhan">Hiện FPS</span><button type="button" class="cd-tgl" data-cd="hienFps" role="switch" aria-checked="false"><i></i></button></div>
+</div>
+<div class="cd-muc" data-muc="dieukhien">
+<div class="cd-hang"><span class="cd-nhan">Cỡ cần điều khiển <b class="cd-so" data-so="coCan">50</b></span><input type="range" class="cd-range" data-cd="coCan" min="0" max="100" value="50" aria-label="Cỡ cần điều khiển"></div>
+<div class="cd-hang"><span class="cd-nhan">Độ nhạy <b class="cd-so" data-so="doNhay">50</b></span><input type="range" class="cd-range" data-cd="doNhay" min="0" max="100" value="50" aria-label="Độ nhạy"></div>
+<div class="cd-hang"><span class="cd-nhan">Rung khi chạm</span><button type="button" class="cd-tgl on" data-cd="rungKhiCham" role="switch" aria-checked="true"><i></i></button></div>
+</div>
+<div class="cd-muc" data-muc="khac">
+<div class="cd-hang"><span class="cd-nhan">Ngôn ngữ</span><div class="cd-seg" data-cd="ngonNgu"><button type="button" data-v="vi" class="on">Tiếng Việt</button><button type="button" data-v="en">English</button></div></div>
+<div class="cd-hang"><span class="cd-nhan">Phiên bản</span><span class="cd-chu">Rồng Thần Online demo 1.0</span></div>
+</div>
+<div class="cd-ghichu">Hiện mới là khung giao diện — một số tùy chọn chưa có tác dụng (Hiện FPS đã dùng được), sẽ được thêm dần.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/buingoctramoppo01-ctrl/dragon-god-game@main/script.js"></script>
+</body></html>
